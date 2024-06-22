@@ -4,7 +4,7 @@ import Categories from './Categories';
 type SearchBarProp = {
   filterText: string,
   setFilterText: (value: string) => void,
-  categories: [],
+  categories: string[],
   setFilterCategory: (value: string) => void,
 }
 

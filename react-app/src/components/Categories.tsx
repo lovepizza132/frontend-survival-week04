@@ -1,7 +1,7 @@
 import Category from './Catoegory';
 
 type CategoriesProp = {
-  categories: [],
+  categories: string[],
   setFilterCategory: (value: string) => void,
 }
 

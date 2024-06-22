@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import useFetchRestaurants from './hooks/useFetchRestaurants';
-import selectCategories from './utils/selectCategories';
+import extractCategories from './utils/extractCategories';
 import SearchBar from './components/SearchBar';
 
 export default function App() {
@@ -8,7 +8,7 @@ export default function App() {
   const [filterText, setFilterText] = useState('');
   const [filterCategory, setFilterCategory] = useState('');
 
-  const categories = selectCategories(restaurants);
+  const categories = extractCategories(restaurants);
   console.log(filterCategory);
   return (
     <div>
