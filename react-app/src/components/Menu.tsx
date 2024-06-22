@@ -1,18 +1,25 @@
 import Food from '../types/Food';
+import MenuItem from './MenuItem';
 
 type MenuProp = {
-  food: Food,
+  menu: Food[],
 }
 
 export default function Menu({
-  food,
+  menu,
 }: MenuProp) {
   return (
-    <li>
-      {food.name}
-      (
-      {food.price}
-      원)
-    </li>
+    <ul>
+      {menu.map((food: Food, idx: number) => {
+        const key = `${food.id}-${idx}`;
+
+        return (
+          <MenuItem
+            key={key}
+            food={food}
+          />
+        );
+      })}
+    </ul>
   );
 }
