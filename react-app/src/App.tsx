@@ -3,6 +3,7 @@ import useFetchRestaurants from './hooks/useFetchRestaurants';
 import extractCategories from './utils/extractCategories';
 import SearchBar from './components/SearchBar';
 import filterRestaurants from './utils/filterRestaurants';
+import RestaurantTable from './components/RestaurantTable';
 
 export default function App() {
   const restaurants = useFetchRestaurants();
@@ -23,9 +24,9 @@ export default function App() {
         categories={categories}
         setFilterCategory={setFilterCategory}
       />
-      <div className="restaurant">
-        dd
-      </div>
+      <RestaurantTable
+        filteredRestaurants={filteredRestaurants}
+      />
     </div>
   );
 }
