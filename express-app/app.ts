@@ -48,9 +48,17 @@ app.get('/restaurants', (req, res) => {
   res.send({ restaurants });
 });
 
-// app.post('/orders', (req, res) => {
-//   console.log(req);
-// });
+app.post('/orders', (req, res) => {
+  console.log(req);
+
+  const result = {
+    id: Date.now().toString(),
+    menu: [],
+    totalPrice: 0,
+  };
+
+  res.send({ result });
+});
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
