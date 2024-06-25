@@ -5,7 +5,7 @@ const port = 3000;
 const app = express();
 
 app.use(cors());
-// app.use(express.json());
+app.use(express.json());
 
 app.get('/restaurants', (req, res) => {
   const restaurants = [
@@ -49,15 +49,15 @@ app.get('/restaurants', (req, res) => {
 });
 
 app.post('/orders', (req, res) => {
-  console.log(req);
+  const { selectedFood, totalPrice } = req.body;
 
-  const result = {
+  const receipt = {
     id: Date.now().toString(),
-    menu: [],
-    totalPrice: 0,
+    menu: selectedFood,
+    totalPrice,
   };
 
-  res.send({ result });
+  res.status(201).send({ receipt });
 });
 
 app.listen(port, () => {
