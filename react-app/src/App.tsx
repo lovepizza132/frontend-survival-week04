@@ -1,31 +1,33 @@
-import { useState } from 'react';
+import { useInterval, useLocalStorage } from 'usehooks-ts';
 import useFetchRestaurants from './hooks/useFetchRestaurants';
-import extractCategories from './utils/extractCategories';
-import SearchBar from './components/SearchBar';
-import filterRestaurants from './utils/filterRestaurants';
-import RestaurantTable from './components/RestaurantTable';
+import Cart from './components/Cart';
+import FilterableRestaurantTable from './components/FilterableRestaurantTable';
+import Receipt from './types/Receipt';
+import MenuItem from './components/MenuItem';
+import ReceiptPrinter from './components/ReceiptPrinter';
 
 export default function App() {
   const restaurants = useFetchRestaurants();
-  const [filterText, setFilterText] = useState('');
-  const [filterCategory, setFilterCategory] = useState('전체');
+  const emptyReceipt = {} as Receipt;
+  const [receipt, setReceipt] = useLocalStorage<Receipt>('receipt', emptyReceipt);
 
-  const categories = extractCategories(restaurants);
+  const { id, menu, totalPrice } = receipt;
 
-  const filteredRestaurants = filterRestaurants(restaurants, { filterText, filterCategory });
+  useInterval(() => {
+    setReceipt(emptyReceipt);
+  }, receipt.id ? 5000 : null);
 
-  console.log(filteredRestaurants);
   return (
     <div>
-      <h2>메가테라 맛집 리스트</h2>
-      <SearchBar
-        filterText={filterText}
-        setFilterText={setFilterText}
-        categories={categories}
-        setFilterCategory={setFilterCategory}
+      <h2>푸드코트 키오스크</h2>
+      <Cart
+        setReceipt={setReceipt}
       />
-      <RestaurantTable
-        filteredRestaurants={filteredRestaurants}
+      <FilterableRestaurantTable
+        restaurants={restaurants}
+      />
+      <ReceiptPrinter
+        receipt={receipt}
       />
     </div>
   );
