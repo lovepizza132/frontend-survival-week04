@@ -3,15 +3,12 @@ import useFetchRestaurants from './hooks/useFetchRestaurants';
 import Cart from './components/Cart';
 import FilterableRestaurantTable from './components/FilterableRestaurantTable';
 import Receipt from './types/Receipt';
-import MenuItem from './components/MenuItem';
 import ReceiptPrinter from './components/ReceiptPrinter';
 
 export default function App() {
   const restaurants = useFetchRestaurants();
   const emptyReceipt = {} as Receipt;
   const [receipt, setReceipt] = useLocalStorage<Receipt>('receipt', emptyReceipt);
-
-  const { id, menu, totalPrice } = receipt;
 
   useInterval(() => {
     setReceipt(emptyReceipt);
